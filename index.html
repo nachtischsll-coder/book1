@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Панель писателя</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="doc-sidebar">
+        <h1>Writer Hub</h1>
+        <p class="sidebar-caption">Документы</p>
+
+        <div class="new-doc-row">
+          <input id="newDocName" type="text" placeholder="Название документа" />
+          <button id="createDocBtn">Создать</button>
+        </div>
+
+        <ul id="docsList" class="docs-list"></ul>
+      </aside>
+
+      <main class="main-content">
+        <section class="card" aria-labelledby="stats-title">
+          <h2 id="stats-title">Аналитика слов и проектов</h2>
+          <div class="stats-grid">
+            <p><span id="totalWords">0</span><small>слов во всех проектах</small></p>
+            <p><span id="activeProjects">0</span><small>активных проектов</small></p>
+            <p><span id="completedProjects">0</span><small>завершённых проектов</small></p>
+            <p><span id="editorWordCount">0</span><small>слов в открытом документе</small></p>
+          </div>
+
+          <div class="project-form">
+            <input id="projectName" type="text" placeholder="Название проекта" />
+            <input id="projectWords" type="number" min="0" placeholder="Количество слов" />
+            <select id="projectStatus">
+              <option value="active">Активный</option>
+              <option value="completed">Завершённый</option>
+            </select>
+            <button id="addProject">Добавить проект</button>
+          </div>
+
+          <ul id="projectsList" class="projects-list"></ul>
+        </section>
+
+        <section class="card" aria-labelledby="lifetime-title">
+          <h2 id="lifetime-title">Аналитика за всё время</h2>
+          <div class="stats-grid">
+            <p><span id="allTimeWordsTyped">0</span><small>всего набрано слов</small></p>
+            <p><span id="allTimeDocsCreated">0</span><small>создано документов</small></p>
+            <p><span id="allTimeTasksDone">0</span><small>выполнено задач</small></p>
+          </div>
+        </section>
+
+        <section class="card" aria-labelledby="editor-title">
+          <div class="editor-header">
+            <h2 id="editor-title">Текстовый редактор</h2>
+            <p id="currentDocName" class="doc-name">Без документа</p>
+          </div>
+
+          <div class="toolbar" role="toolbar" aria-label="Панель форматирования">
+            <button class="format-btn" data-command="bold"><b>B</b></button>
+            <button class="format-btn" data-command="italic"><i>I</i></button>
+            <button class="format-btn" data-command="underline"><u>U</u></button>
+            <button class="format-btn" data-command="insertUnorderedList">• Список</button>
+            <button class="format-btn" data-command="justifyLeft">Слева</button>
+            <button class="format-btn" data-command="justifyCenter">По центру</button>
+            <button class="format-btn" data-command="justifyRight">Справа</button>
+          </div>
+
+          <div id="editorInput" class="editor" contenteditable="true" aria-label="Редактор текста"></div>
+          <p class="notes-meta">Слов в текущем тексте: <strong id="editorWordCountInline">0</strong></p>
+        </section>
+
+        <section class="card" aria-labelledby="tasks-title">
+          <h2 id="tasks-title">Список задач</h2>
+          <div class="task-row">
+            <input id="taskInput" type="text" placeholder="Новая задача (например: дописать сцену 4)" />
+            <button id="addTaskBtn">Добавить</button>
+          </div>
+          <ul id="tasksList" class="tasks-list"></ul>
+        </section>
+      </main>
+    </div>
+
+    <div class="tool-rail" aria-label="Быстрые инструменты">
+      <button class="tool-fab timer" data-tool="timer" aria-label="Открыть таймер">⏰</button>
+      <button class="tool-fab audio" data-tool="audio" aria-label="Открыть аудио">🎧</button>
+      <button class="tool-fab notes" data-tool="notes" aria-label="Открыть заметки">📝</button>
+    </div>
+
+    <div id="overlay" class="overlay hidden"></div>
+
+    <section id="timerPanel" class="floating-panel hidden" aria-labelledby="timer-title">
+      <div class="panel-head">
+        <h3 id="timer-title">Таймер работы</h3>
+        <button class="close-btn" data-close="timer">✕</button>
+      </div>
+      <p id="timerDisplay" class="timer">00:00:00</p>
+      <div class="button-row">
+        <button id="startTimer">Старт</button>
+        <button id="pauseTimer">Пауза</button>
+        <button id="resetTimer">Сброс</button>
+      </div>
+    </section>
+
+    <section id="notesPanel" class="floating-panel hidden" aria-labelledby="notes-title">
+      <div class="panel-head">
+        <h3 id="notes-title">Быстрые заметки</h3>
+        <button class="close-btn" data-close="notes">✕</button>
+      </div>
+      <textarea id="notesInput" rows="8" placeholder="Короткие заметки, идеи, реплики..."></textarea>
+      <p class="notes-meta">Слов в заметках: <strong id="notesWordCount">0</strong></p>
+    </section>
+
+    <section id="audioPanel" class="floating-panel hidden" aria-labelledby="audio-title">
+      <div class="panel-head">
+        <h3 id="audio-title">Фоновая музыка</h3>
+        <button class="close-btn" data-close="audio">✕</button>
+      </div>
+      <audio controls>
+        <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_a343beb9f8.mp3?filename=meditation-relaxing-145038.mp3" type="audio/mpeg" />
+        Ваш браузер не поддерживает аудиоплеер.
+      </audio>
+    </section>
+
+    <script src="app.js"></script>
+  </body>
+</html>
