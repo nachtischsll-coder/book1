@@ -91,7 +91,7 @@ button {
 
 button:hover { background: #4338ca; }
 
-.docs-list, .projects-list, .tasks-list {
+.docs-list, .projects-list, .tasks-list, .notes-list {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -106,29 +106,43 @@ button:hover { background: #4338ca; }
   border: 1px solid #374151;
 }
 
-.docs-list button.active {
+.docs-list button.active,
+.notes-list button.active {
   background: #2563eb;
   border-color: #3b82f6;
 }
 
-.projects-list li {
+.projects-list li,
+.tasks-list li,
+.notes-list li {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
+  align-items: center;
+  gap: 10px;
   background: #f9fafb;
   border-radius: 8px;
   padding: 8px 10px;
 }
 
-.tasks-list li {
+.project-main {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  background: #f9fafb;
-  border-radius: 8px;
-  padding: 8px 10px;
+  flex-direction: column;
+  gap: 2px;
 }
+
+.project-actions,
+.note-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.action-btn {
+  padding: 6px 10px;
+  font-size: 0.85rem;
+}
+
+.action-btn.edit { background: #dbeafe; color: #1d4ed8; }
+.action-btn.delete { background: #fee2e2; color: #b91c1c; }
 
 .task-left {
   display: flex;
@@ -139,12 +153,6 @@ button:hover { background: #4338ca; }
 .task-done {
   text-decoration: line-through;
   color: #6b7280;
-}
-
-.task-delete {
-  background: #fee2e2;
-  color: #b91c1c;
-  padding: 6px 10px;
 }
 
 .editor-header {
@@ -169,6 +177,7 @@ button:hover { background: #4338ca; }
   border: 1px solid #c7d2fe;
   padding: 8px 12px;
 }
+
 .format-btn:hover { background: #dbeafe; }
 
 .editor {
@@ -186,23 +195,23 @@ button:hover { background: #4338ca; }
 
 .tool-rail {
   position: fixed;
-  left: 12px;
-  top: 90px;
-  z-index: 40;
+  left: 292px;
+  top: 96px;
+  z-index: 30;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
 }
 
 .tool-fab {
-  width: 78px;
-  height: 78px;
+  width: 52px;
+  height: 52px;
   border-radius: 999px;
   border: 1px solid transparent;
-  font-size: 1.8rem;
+  font-size: 1.25rem;
   display: grid;
   place-items: center;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
 }
 
 .tool-fab.timer { background: #fee2e2; color: #dc2626; border-color: #fca5a5; }
@@ -221,7 +230,7 @@ button:hover { background: #4338ca; }
   top: 50%;
   left: 52%;
   transform: translate(-50%, -50%);
-  width: min(520px, calc(100vw - 32px));
+  width: min(620px, calc(100vw - 32px));
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.24);
@@ -241,7 +250,29 @@ button:hover { background: #4338ca; }
 
 .timer { font-size: 2rem; font-weight: 700; margin: 0 0 10px; }
 .button-row { display: flex; gap: 8px; flex-wrap: wrap; }
-audio, textarea { width: 100%; }
+
+.audio-controls {
+  display: grid;
+  grid-template-columns: 160px 1fr auto;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.audio-embed {
+  width: 100%;
+  min-height: 260px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #f9fafb;
+}
+
+.helper-text {
+  margin: 8px 0 0;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+textarea { width: 100%; }
 
 @media (max-width: 980px) {
   .layout { grid-template-columns: 1fr; }
@@ -252,5 +283,7 @@ audio, textarea { width: 100%; }
     bottom: 12px;
     flex-direction: row;
   }
-  .tool-fab { width: 62px; height: 62px; font-size: 1.4rem; }
+
+  .tool-fab { width: 48px; height: 48px; font-size: 1.1rem; }
+  .audio-controls { grid-template-columns: 1fr; }
 }
