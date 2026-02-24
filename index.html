@@ -24,15 +24,16 @@
         <section class="card" aria-labelledby="stats-title">
           <h2 id="stats-title">Аналитика слов и проектов</h2>
           <div class="stats-grid">
-            <p><span id="totalWords">0</span><small>слов во всех проектах</small></p>
+            <p><span id="totalWords">0</span><small>слов во всех документах</small></p>
+            <p><span id="totalChars">0</span><small>символов во всех документах</small></p>
             <p><span id="activeProjects">0</span><small>активных проектов</small></p>
             <p><span id="completedProjects">0</span><small>завершённых проектов</small></p>
             <p><span id="editorWordCount">0</span><small>слов в открытом документе</small></p>
+            <p><span id="editorCharCount">0</span><small>символов в открытом документе</small></p>
           </div>
 
           <div class="project-form">
             <input id="projectName" type="text" placeholder="Название проекта" />
-            <input id="projectWords" type="number" min="0" placeholder="Количество слов" />
             <select id="projectStatus">
               <option value="active">Активный</option>
               <option value="completed">Завершённый</option>
@@ -69,7 +70,7 @@
           </div>
 
           <div id="editorInput" class="editor" contenteditable="true" aria-label="Редактор текста"></div>
-          <p class="notes-meta">Слов в текущем тексте: <strong id="editorWordCountInline">0</strong></p>
+          <p class="notes-meta">Слов: <strong id="editorWordCountInline">0</strong> • Символов: <strong id="editorCharCountInline">0</strong></p>
         </section>
 
         <section class="card" aria-labelledby="tasks-title">
@@ -106,22 +107,33 @@
 
     <section id="notesPanel" class="floating-panel hidden" aria-labelledby="notes-title">
       <div class="panel-head">
-        <h3 id="notes-title">Быстрые заметки</h3>
+        <h3 id="notes-title">Заметки (список)</h3>
         <button class="close-btn" data-close="notes">✕</button>
       </div>
-      <textarea id="notesInput" rows="8" placeholder="Короткие заметки, идеи, реплики..."></textarea>
-      <p class="notes-meta">Слов в заметках: <strong id="notesWordCount">0</strong></p>
+      <div class="task-row">
+        <input id="newNoteTitle" type="text" placeholder="Название заметки" />
+        <button id="addNoteBtn">Новая</button>
+      </div>
+      <ul id="notesList" class="notes-list"></ul>
+      <textarea id="notesInput" rows="7" placeholder="Текст выбранной заметки..."></textarea>
+      <p class="notes-meta">Слов в заметке: <strong id="notesWordCount">0</strong></p>
     </section>
 
     <section id="audioPanel" class="floating-panel hidden" aria-labelledby="audio-title">
       <div class="panel-head">
-        <h3 id="audio-title">Фоновая музыка</h3>
+        <h3 id="audio-title">Музыка (Spotify / YouTube)</h3>
         <button class="close-btn" data-close="audio">✕</button>
       </div>
-      <audio controls>
-        <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_a343beb9f8.mp3?filename=meditation-relaxing-145038.mp3" type="audio/mpeg" />
-        Ваш браузер не поддерживает аудиоплеер.
-      </audio>
+      <div class="audio-controls">
+        <select id="audioSourceType">
+          <option value="spotify">Spotify</option>
+          <option value="youtube">YouTube</option>
+        </select>
+        <input id="audioUrlInput" type="url" placeholder="Вставьте ссылку Spotify трек/плейлист или YouTube видео" />
+        <button id="applyAudioBtn">Открыть</button>
+      </div>
+      <iframe id="audioEmbed" class="audio-embed" title="Музыкальный плеер" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <p id="audioHelp" class="helper-text">Вставьте ссылку и нажмите «Открыть».</p>
     </section>
 
     <script src="app.js"></script>
